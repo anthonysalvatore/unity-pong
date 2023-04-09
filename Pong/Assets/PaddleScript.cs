@@ -22,7 +22,7 @@ public class PaddleScript : MonoBehaviour
     {
         if (isPlayer1)
         {
-            movement = Input.GetAxisRaw("Vertical1");
+            movement = Input.GetAxisRaw("Vertical");
         }
         else
         {
