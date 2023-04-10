@@ -14,6 +14,18 @@ public class LogicScript : MonoBehaviour
 
     public GameObject ball;
 
+    private void Update()
+    {
+        if (scoreP1 >= 10)
+        {
+            // TODO : create UI that says who won, with reset button. Stop player controls, stop ball spawning. Make function in paddle scrips and ball scripts, called via this script
+        }
+        else if (scoreP2 >= 10)
+        {
+
+        }
+    }
+
     public void player1Score()
     {
         scoreP1 += 1;
