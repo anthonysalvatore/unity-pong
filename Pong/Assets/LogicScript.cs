@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LogicScript : MonoBehaviour
 {
@@ -9,27 +10,24 @@ public class LogicScript : MonoBehaviour
     public TextMeshProUGUI TextP1;
     public TextMeshProUGUI TextP2;
 
+    public int scoreToWin = 10;
+
     private int scoreP1 = 0;
     private int scoreP2 = 0;
 
     public GameObject ball;
-
-    private void Update()
-    {
-        if (scoreP1 >= 10)
-        {
-            // TODO : create UI that says who won, with reset button. Stop player controls, stop ball spawning. Make function in paddle scrips and ball scripts, called via this script
-        }
-        else if (scoreP2 >= 10)
-        {
-
-        }
-    }
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI playerWin;
 
     public void player1Score()
     {
         scoreP1 += 1;
         TextP1.text = scoreP1.ToString();
+        if (scoreP2 >= scoreToWin)
+        {
+            GameOver("p1");
+            return;
+        }
         ResetPosition();
     }
     
@@ -37,11 +35,34 @@ public class LogicScript : MonoBehaviour
     {
         scoreP2 += 1;
         TextP2.text = scoreP2.ToString();
+        if (scoreP2 >= scoreToWin) 
+        {
+            GameOver("p2");
+            return;
+        }
         ResetPosition();
     }
 
     public void ResetPosition()
     {
         ball.GetComponent<BallScript>().Reset();
+    }
+
+    private void GameOver(string winner)
+    {
+        gameOverScreen.SetActive(true);
+        if (winner == "p1")
+        {
+            playerWin.text = "Player 1 Wins!";
+        }
+        else
+        {
+            playerWin.text = "Player 2 Wins!";
+        }
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("Pong");
     }
 }
